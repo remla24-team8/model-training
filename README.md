@@ -72,3 +72,18 @@ uv pip compile pyproject.toml -o requirements.txt
 ```
 
 This updates the requirements.txt with new locked dependencies based on the updated `pyproject.toml`. If you run `uv pip sync requirements.txt` again this will then update your installation.
+
+### Download Data
+We use the phishing detection dataset from Aravindh Annamalai on Kaggle (https://www.kaggle.com/datasets/aravindhannamalai/dl-dataset).
+
+ You can either download the dataset directly from the website or use `python src/download_data.py`. For the second method you will need your Kaggle API token, follow this tutorial (https://ravi-chan.medium.com/how-to-download-any-data-set-from-kaggle-7e2adc152d7f). 
+
+### Get Data
+After having downloaded the data from Kaggle, the following files (`test.txt`, `train.txt` and `val.txt`)  will be stored in the `dl-dataset\DL Dataset\` folder. By running `python src/get_data.py` the data will be stored in `csv_files\test_data.csv`, `csv_files\train_data.csv` and `csv_files\val_data.csv`. 
+
+### Process Data
+The text data must also be tokenized and the labels must be encoded, this is done by running inside your environment `python src/process_data.py`. It takes the data stored in the csv files and saves the tokenized versions in `csv_files\x_test.csv`, etc. .
+
+### Train
+Run `python src/train.py` to train the model stored in `src\model.py` and save it to `models/phishing_model.h5`.
+
