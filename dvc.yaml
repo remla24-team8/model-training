@@ -1,0 +1,28 @@
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - src/get_data.py
+    outs:
+    - csv_files\test_data.csv
+    - csv_files\train_data.csv
+    - csv_files\val_data.csv
+  preprocess:
+    cmd: python src/process_data.py
+    deps:
+    - src/process_data.py
+    outs:
+    - csv_files\x_test.csv
+    - csv_files\x_train.csv
+    - csv_files\x_val.csv
+    - csv_files\y_test.csv
+    - csv_files\y_train.csv
+    - csv_files\y_val.csv
+  train:
+    cmd: python src/train.py
+    deps:
+    - src/train.py
+    - src/model.py
+    outs:
+    - models/phishing_model.h5
+
