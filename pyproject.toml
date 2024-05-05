@@ -1,0 +1,15 @@
+[project]
+name = "urlphishing"
+version = "0.1.0"
+description = "Url phishing CNN"
+authors = []
+dependencies = [
+    "keras ~= 3.3",
+    "tensorflow ~= 2.16",
+    "scikit-learn ~= 1.4",
+    "pandas ~= 2.2",
+    "numpy ~= 1.26",
+    "matplotlib ~= 3.8"
+]
+requires-python = ">=3.12"
+readme = "README.md"
