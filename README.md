@@ -90,7 +90,8 @@ Run `python src/train.py` to train the model stored in `src\model.py` and save i
 ### DVC
 To create a data pipeline we have used DVC (https://dvc.org/). By running `dvc init` you initialise DVC to setup the pipeline. 
 
-You can either use a local remote DVC by running: `dvc remote add -d mylocalremote ~/ remotedvc`
+You can either use a local remote DVC by running: `dvc remote add -d mylocalremote ~/ remotedvc`.
+
 Or you can use a cloud remote like google drive following the instructions on this page (https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#url-format).
 
 By running `dvc repro` a new version of the pipeline is executed. 
