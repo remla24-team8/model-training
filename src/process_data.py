@@ -52,7 +52,7 @@ pd.DataFrame(y_test, dtype=int).to_csv('csv_files/y_test.csv', index=False)
 
 
 # Save parameters to a JSON file
-with open('params.json', 'w') as json_file:
+with open('params.json', 'w+') as json_file:
     json.dump(params, json_file, indent=4)
 
 # print('Max index in x_train:', np.max(x_train))
