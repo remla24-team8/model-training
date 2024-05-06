@@ -22,6 +22,7 @@ stages:
     cmd: python src/train.py
     deps:
     - src/train.py
+    - src/process_data.py
     - src/model.py
     outs:
     - models/phishing_model.h5

@@ -35,7 +35,7 @@ params = {'loss_function': 'binary_crossentropy',
                        'batch_test': 250,
                        'categories': ['phishing', 'legitimate'],
                        'char_index': char_index,
-                       'epoch': 10,
+                       'epoch': 30,
                        'embedding_dimension': 50,
                        'dataset_dir': "../dataset/small_dataset/",
                        "metrics": ["accuracy"]}

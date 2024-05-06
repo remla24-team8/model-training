@@ -76,7 +76,7 @@
         "^": 65,
         "`": 66
     },
-    "epoch": 10,
+    "epoch": 1,
     "embedding_dimension": 50,
     "dataset_dir": "../dataset/small_dataset/",
     "metrics": [
