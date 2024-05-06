@@ -1,7 +1,6 @@
 #Loading the dataset
 
 import pandas as pd
-import numpy as np
 
 # Code to fetch and save data
 train = [line.strip() for line in open("dl-dataset/DL Dataset/train.txt", "r").readlines()[1:10000]]
