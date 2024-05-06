@@ -43,5 +43,5 @@ hist = model.fit(x_train, y_train,
                 )
 
 # Save the entire model to a HDF5 file.
-model.save('phishing_model.h5')  # legacy HDF5 format
+model.save('models/phishing_model.h5')  # legacy HDF5 format
 
