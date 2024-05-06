@@ -32,7 +32,7 @@ x_test = np.clip(x_test, 0, vocab_size - 1)
 # Create the model
 model = create_model(char_index, num_categories, embedding_dimension)
 #training of the model
-model.compile(loss=params['loss_function'], optimizer=params['optimizer'])
+model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=params['metrics'])
 
 
 hist = model.fit(x_train, y_train,
@@ -41,6 +41,13 @@ hist = model.fit(x_train, y_train,
                 shuffle=True,
                 validation_data=(x_val, y_val)
                 )
+
+scores = model.evaluate(x_test, y_test, batch_size=params['batch_test'])
+
+metrics = dict(zip(['loss', 'accuracy'], scores))
+
+with open('models/summary.json', 'w') as json_file:
+    json.dump(metrics, json_file, indent=4)
 
 # Save the entire model to a HDF5 file.
 model.save('models/phishing_model.h5')  # legacy HDF5 format

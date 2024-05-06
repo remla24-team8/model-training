@@ -35,9 +35,10 @@ params = {'loss_function': 'binary_crossentropy',
                        'batch_test': 250,
                        'categories': ['phishing', 'legitimate'],
                        'char_index': char_index,
-                       'epoch': 30,
+                       'epoch': 10,
                        'embedding_dimension': 50,
-                       'dataset_dir': "../dataset/small_dataset/"}
+                       'dataset_dir': "../dataset/small_dataset/",
+                       "metrics": ["accuracy"]}
 
 
 # Save processed data
