@@ -97,3 +97,6 @@ Or you can use a cloud remote like google drive following the instructions on th
 By running `dvc repro` a new version of the pipeline is executed. 
 
 Run `dvc push` to push to the remote you created, remember to set your desired remote as default using `dvc remote default mylocalremote`
+
+DVC also has an option to run experiments using `dvc exp run`. The accuracy and loss from each run is saved and can be viewed using `dvc exp show`. 
+

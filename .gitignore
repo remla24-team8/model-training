@@ -162,5 +162,6 @@ cython_debug/
 dl-dataset/
 csv_files/
 models/
+params.json
 
 

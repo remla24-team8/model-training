@@ -1,6 +1,7 @@
 #Loading the dataset
 
 import pandas as pd
+import os
 
 # Code to fetch and save data
 train = [line.strip() for line in open("dl-dataset/DL Dataset/train.txt", "r").readlines()[1:10000]]
@@ -20,6 +21,9 @@ raw_y_val=[line.split("\t")[0] for line in val]
 data_train = pd.DataFrame({'text': raw_x_train, 'label': raw_y_train})
 data_test = pd.DataFrame({'text': raw_x_test, 'label': raw_y_test})
 data_val = pd.DataFrame({'text': raw_x_val, 'label': raw_y_val})
+
+if not os.path.exists('csv_files'):
+    os.makedirs('csv_files')
 
 data_train.to_csv('csv_files/train_data.csv', index=False)
 data_test.to_csv('csv_files/test_data.csv', index=False)

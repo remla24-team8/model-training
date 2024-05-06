@@ -37,7 +37,8 @@ params = {'loss_function': 'binary_crossentropy',
                        'char_index': char_index,
                        'epoch': 30,
                        'embedding_dimension': 50,
-                       'dataset_dir': "../dataset/small_dataset/"}
+                       'dataset_dir': "../dataset/small_dataset/",
+                       "metrics": ["accuracy"]}
 
 
 # Save processed data
@@ -51,7 +52,7 @@ pd.DataFrame(y_test, dtype=int).to_csv('csv_files/y_test.csv', index=False)
 
 
 # Save parameters to a JSON file
-with open('params.json', 'w') as json_file:
+with open('params.json', 'w+') as json_file:
     json.dump(params, json_file, indent=4)
 
 # print('Max index in x_train:', np.max(x_train))
