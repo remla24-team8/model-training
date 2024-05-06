@@ -46,9 +46,11 @@ scores = model.evaluate(x_test, y_test, batch_size=params['batch_test'])
 
 metrics = dict(zip(['loss', 'accuracy'], scores))
 
+# Save the entire model to a HDF5 file.
+model.save('models/phishing_model.h5')  # legacy HDF5 format
+
 with open('models/summary.json', 'w+') as json_file:
     json.dump(metrics, json_file, indent=4)
 
-# Save the entire model to a HDF5 file.
-model.save('models/phishing_model.h5')  # legacy HDF5 format
+
 
