@@ -1,4 +1,4 @@
 [core]
-    remote = remla-gdrive-remote
-['remote "remla-gdrive-remote"']
-    url = gdrive://11ncdA4zLcQXs4_SUcbYxj_T-DVQrsP5c
+    remote = remla-remote-gdrive
+['remote "remla-remote-gdrive"']
+    url = gdrive://1p8ljQaWBnG3fd1h71UZxIkldF84LIGQs
