@@ -1,25 +1,49 @@
 schema: '2.0'
 stages:
   get_data:
-    cmd: python src/get_data.py
+    cmd: python src/get_data.py data/train.txt data/test.txt data/val.txt
     deps:
+    - path: data/test.txt
+      hash: md5
+      md5: a1cab28ad8554fd9269d31e5708469d0
+      size: 32724891
+    - path: data/train.txt
+      hash: md5
+      md5: 13fd241a41370119612d5b00b0433009
+      size: 93921671
+    - path: data/val.txt
+      hash: md5
+      md5: 7b1e28b1e91582c6f36e85517c3cc6ee
+      size: 46258330
     - path: src/get_data.py
       hash: md5
-      md5: 4b0a725290e88f0feec2a64806b5510c
-      size: 1266
+      md5: a1c5edd1939a3fe378741ee63a9779ff
+      size: 1537
     outs:
-    - path: csv_files/test_data.csv
+    - path: output/raw_x_test.joblib
       hash: md5
-      md5: 983c799488a1dd3e5dd3141a60efcd7a
-      size: 183478
-    - path: csv_files/train_data.csv
+      md5: 5d5260ca5cfaf43ef4b87d950454943e
+      size: 29790019
+    - path: output/raw_x_train.joblib
       hash: md5
-      md5: ca65c44c39e06d1f5cfe298d533611c2
-      size: 898882
-    - path: csv_files/val_data.csv
+      md5: a8d1efa58ab655ad7e3ae6289a2771a6
+      size: 85494549
+    - path: output/raw_x_val.joblib
       hash: md5
-      md5: 953ea89409118e0f4b501e103ff468b7
-      size: 89816
+      md5: a967bd8fda10c5ae67333f14c44667e6
+      size: 6238409
+    - path: output/raw_y_test.joblib
+      hash: md5
+      md5: 414bbd83a196cc0899bbf51b9764083f
+      size: 4411008
+    - path: output/raw_y_train.joblib
+      hash: md5
+      md5: e7661073e84fb9fc1386bb9beb617d5e
+      size: 12665899
+    - path: output/raw_y_val.joblib
+      hash: md5
+      md5: a967bd8fda10c5ae67333f14c44667e6
+      size: 6238409
   preprocess:
     cmd: python src/process_data.py
     deps:
