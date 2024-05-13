@@ -35,19 +35,6 @@ def main():
     y_val = encoder.transform(raw_y_val)
     y_test = encoder.transform(raw_y_test)
 
-    #Parameters
-    params = {'loss_function': 'binary_crossentropy',
-                        'optimizer': 'adam',
-                        'sequence_length': 200,
-                        'batch_train': 500,
-                        'batch_test': 250,
-                        'categories': ['phishing', 'legitimate'],
-                        'char_index': char_index,
-                        'epoch': 30,
-                        'embedding_dimension': 50,
-                        'dataset_dir': "../dataset/small_dataset/",
-                        "metrics": ["accuracy"]}
-
 
     # Save processed data
     dump(x_train, 'output/x_train.joblib')

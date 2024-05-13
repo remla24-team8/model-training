@@ -5,6 +5,20 @@ from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropou
 
 #model definition
 def create_model(char_index,num_categories, embedding_dimension):
+    #Parameters
+    params = {'loss_function': 'binary_crossentropy',
+                        'optimizer': 'adam',
+                        'sequence_length': 200,
+                        'batch_train': 500,
+                        'batch_test': 250,
+                        'categories': ['phishing', 'legitimate'],
+                        'char_index': char_index,
+                        'epoch': 30,
+                        'embedding_dimension': 50,
+                        'dataset_dir': "../dataset/small_dataset/",
+                        "metrics": ["accuracy"]}
+
+
     model = Sequential()
 
     voc_size = len(char_index.keys())
