@@ -41,7 +41,7 @@ def main():
     val=[line.strip() for line in open(val_data, "r").readlines()]
     raw_x_val=[line.split("\t")[1] for line in val]
     raw_y_val=[line.split("\t")[0] for line in val]
-    dump(raw_y_val, 'output/raw_x_val.joblib')
+    dump(raw_x_val, 'output/raw_x_val.joblib')
     dump(raw_y_val, 'output/raw_y_val.joblib')
 
 

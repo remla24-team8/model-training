@@ -1,5 +1,4 @@
 from model import create_model
-import numpy as np
 from joblib import dump, load
 import json
 # Load or define necessary variables
