@@ -47,35 +47,63 @@ stages:
   preprocess:
     cmd: python src/process_data.py
     deps:
+    - path: output/raw_x_test.joblib
+      hash: md5
+      md5: 5d5260ca5cfaf43ef4b87d950454943e
+      size: 29790019
+    - path: output/raw_x_train.joblib
+      hash: md5
+      md5: a8d1efa58ab655ad7e3ae6289a2771a6
+      size: 85494549
+    - path: output/raw_x_val.joblib
+      hash: md5
+      md5: a967bd8fda10c5ae67333f14c44667e6
+      size: 6238409
+    - path: output/raw_y_test.joblib
+      hash: md5
+      md5: 414bbd83a196cc0899bbf51b9764083f
+      size: 4411008
+    - path: output/raw_y_train.joblib
+      hash: md5
+      md5: e7661073e84fb9fc1386bb9beb617d5e
+      size: 12665899
+    - path: output/raw_y_val.joblib
+      hash: md5
+      md5: a967bd8fda10c5ae67333f14c44667e6
+      size: 6238409
     - path: src/process_data.py
       hash: md5
-      md5: 2383821c13148946b952c922a1405fe7
-      size: 2537
+      md5: 4feedbb459644706e625c4f8d49c037a
+      size: 1952
     outs:
-    - path: csv_files/x_test.csv
+    - path: output/char_index.joblib
       hash: md5
-      md5: a02b64278ce035a9e582a3e738d59bf4
-      size: 890027
-    - path: csv_files/x_train.csv
+      md5: 8cd045ae1fad8260ad6b54955f160a26
+      size: 438
+    - path: output/x_test.joblib
       hash: md5
-      md5: eb95c661c8af8a2fbf95c1823912b0b2
-      size: 4436133
-    - path: csv_files/x_val.csv
+      md5: f3c6ea64eac2f81df3aa0cc0e2f074db
+      size: 291359425
+    - path: output/x_train.joblib
       hash: md5
-      md5: fa9148196093dd1e0cb622fbfd8f9e3f
-      size: 443884
-    - path: csv_files/y_test.csv
+      md5: 695016d3c1a0d791c33eca5f462961c3
+      size: 836619425
+    - path: output/x_val.joblib
       hash: md5
-      md5: e15b826bb0692ddeac09adb2e6b4a78a
-      size: 4000
-    - path: csv_files/y_train.csv
+      md5: 72d885cc215a614d7f720db47238bd4e
+      size: 412064225
+    - path: output/y_test.joblib
       hash: md5
-      md5: 219fe770e942d1544563d5344aeba6a6
-      size: 20000
-    - path: csv_files/y_val.csv
+      md5: 32935165294821d153d8e1cedc0f81b5
+      size: 2913817
+    - path: output/y_train.joblib
       hash: md5
-      md5: e4ae449f9d4220e247b79af7b57878f2
-      size: 2000
+      md5: 1dbfcb27819aa212f2800bc83a4218cb
+      size: 8366417
+    - path: output/y_val.joblib
+      hash: md5
+      md5: 5ab8040403d021f7a6d04e158de7b066
+      size: 4120865
   train:
     cmd: python src/train.py
     deps:

@@ -18,7 +18,7 @@ def main():
 
     #Tokenize the dataset
     tokenizer = Tokenizer(char_level=True,lower=True, oov_token = '-n-') #
-    tokenizer.fit_on_texts(raw_x_train.tolist() + raw_x_test.tolist() + raw_x_val.tolist())
+    tokenizer.fit_on_texts(raw_x_train + raw_x_test+ raw_x_val)
 
 
     char_index = tokenizer.word_index
