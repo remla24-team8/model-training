@@ -1,30 +1,36 @@
 from model import create_model
-from joblib import dump, load
+import numpy as np
 import json
+
+
 # Load or define necessary variables
 #parameters load
+with open('params.json', 'r') as json_file:
+    params = json.load(json_file)
 
 
-char_index = load("output/char_index.joblib")
+char_index = params['char_index']
+num_categories = len(params['categories'])
+embedding_dimension = params['embedding_dimension']
 
 # Load the data from CSV files
-x_train = load("output/x_train.joblib")
-x_val = load("output/x_val.joblib")
-x_test = load("output/x_test.joblib")
+x_train = np.loadtxt('csv_files/x_train.csv', delimiter=",")
+x_val = np.loadtxt('csv_files/x_val.csv', delimiter=",")
+x_test = np.loadtxt('csv_files/x_test.csv', delimiter=",")
 
-y_train = load("output/y_train.joblib")
-y_val = load("output/y_val.joblib")
-y_test = load("output/y_test.joblib")
+y_train = np.loadtxt('csv_files/y_train.csv', delimiter=",")
+y_val = np.loadtxt('csv_files/y_val.csv', delimiter=",")
+y_test = np.loadtxt('csv_files/y_test.csv', delimiter=",")
 
 #Clipping of the vocab size, something wrong with tokenizer
 vocab_size = len(char_index.keys())
-# x_train = np.clip(x_train, 0, vocab_size - 1)
-# x_val = np.clip(x_val, 0, vocab_size - 1)
-# x_test = np.clip(x_test, 0, vocab_size - 1)
+x_train = np.clip(x_train, 0, vocab_size - 1)
+x_val = np.clip(x_val, 0, vocab_size - 1)
+x_test = np.clip(x_test, 0, vocab_size - 1)
 
 
-# Create the model and return model parameters
-model, params = create_model(char_index)
+# Create the model
+model = create_model(char_index, num_categories, embedding_dimension)
 #training of the model
 model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=params['metrics'])
 
@@ -40,10 +46,11 @@ scores = model.evaluate(x_test, y_test, batch_size=params['batch_test'])
 
 metrics = dict(zip(['loss', 'accuracy'], scores))
 
-#Save the model
-dump(model, 'output/model.joblib')
+# Save the entire model to a HDF5 file.
+model.save('models/phishing_model.h5')  # legacy HDF5 format
 
-
-with open('output/metrics.json', 'w+') as json_file:
+with open('models/summary.json', 'w+') as json_file:
     json.dump(metrics, json_file, indent=4)
+
+
 

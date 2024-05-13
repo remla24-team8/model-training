@@ -163,7 +163,5 @@ dl-dataset/
 csv_files/
 models/
 params.json
-data/
-output/
 
 
