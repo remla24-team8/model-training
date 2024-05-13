@@ -9,7 +9,11 @@ dependencies = [
     "scikit-learn ~= 1.4",
     "pandas ~= 2.2",
     "numpy ~= 1.26",
-    "matplotlib ~= 3.8"
+    "matplotlib ~= 3.8", 
+    "dvc ~= 3.42.0",
+    "dvc-data ~= 3.8.0",
+    "dvc-gdrive == 3.0.1",
+    "gdown == 5.2.0"
 ]
 requires-python = ">=3.12"
 readme = "README.md"

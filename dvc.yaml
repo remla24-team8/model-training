@@ -1,31 +1,52 @@
 stages:
   get_data:
-    cmd: python src/get_data.py
+    cmd: python src/get_data.py data/train.txt data/test.txt data/val.txt
     deps:
     - src/get_data.py
+    - data/test.txt
+    - data/train.txt
+    - data/val.txt
     outs:
-    - csv_files/test_data.csv
-    - csv_files/train_data.csv
-    - csv_files/val_data.csv
+    - output/raw_x_test.joblib
+    - output/raw_x_train.joblib
+    - output/raw_x_val.joblib
+    - output/raw_y_test.joblib
+    - output/raw_y_train.joblib
+    - output/raw_y_val.joblib
+    
   preprocess:
     cmd: python src/process_data.py
     deps:
     - src/process_data.py
+    - output/raw_x_test.joblib
+    - output/raw_x_train.joblib
+    - output/raw_x_val.joblib
+    - output/raw_y_test.joblib
+    - output/raw_y_train.joblib
+    - output/raw_y_val.joblib
+
     outs:
-    - csv_files/x_test.csv
-    - csv_files/x_train.csv
-    - csv_files/x_val.csv
-    - csv_files/y_test.csv
-    - csv_files/y_train.csv
-    - csv_files/y_val.csv
+    - output/char_index.joblib
+    - output/x_train.joblib
+    - output/x_test.joblib
+    - output/x_val.joblib
+    - output/y_test.joblib
+    - output/y_train.joblib
+    - output/y_val.joblib
+   
   train:
     cmd: python src/train.py
     deps:
     - src/train.py
     - src/process_data.py
     - src/model.py
+    - output/x_train.joblib
+    - output/x_val.joblib
+    - output/y_train.joblib
+
+    - output/y_val.joblib
     outs:
-    - models/phishing_model.h5
+    - output/model.joblib
     metrics:
-    - models/summary.json
+    - output/metrics.json
 

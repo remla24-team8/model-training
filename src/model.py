@@ -4,12 +4,28 @@ from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropou
 
 
 #model definition
-def create_model(char_index,num_categories, embedding_dimension):
+def create_model(char_index):
+    #Parameters
+    params = {'loss_function': 'binary_crossentropy',
+                        'optimizer': 'adam',
+                        'sequence_length': 200,
+                        'batch_train': 5000,
+                        'batch_test': 5000,
+                        'categories': ['phishing', 'legitimate'],
+                        'char_index': char_index,
+                        'epoch': 1,
+                        'embedding_dimension': 50,
+                        'dataset_dir': "../dataset/small_dataset/",
+                        "metrics": ["accuracy"]}
+    
+    
+    embedding_dimension = params['embedding_dimension']
+    
     model = Sequential()
 
     voc_size = len(char_index.keys())
     print("voc_size: {}".format(voc_size))
-    model.add(Embedding(input_dim = voc_size+1, output_dim = embedding_dimension))
+    model.add(Embedding(input_dim = voc_size+1, output_dim = embedding_dimension, input_length=params['sequence_length']))
 
     model.add(Conv1D(128, 3, activation='tanh'))
     model.add(MaxPooling1D(3))
@@ -38,6 +54,6 @@ def create_model(char_index,num_categories, embedding_dimension):
 
     model.add(Flatten())
 
-    model.add(Dense(num_categories-1, activation='sigmoid'))
-    return model 
+    model.add(Dense(1, activation='sigmoid'))
+    return model, params
 
