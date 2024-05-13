@@ -1,7 +1,7 @@
 from model import create_model
 import numpy as np
 from joblib import dump, load
-
+import json
 # Load or define necessary variables
 #parameters load
 
@@ -45,4 +45,6 @@ metrics = dict(zip(['loss', 'accuracy'], scores))
 dump(model, 'output/model.joblib')
 
 
+with open('output/metrics.json', 'w+') as json_file:
+    json.dump(metrics, json_file, indent=4)
 

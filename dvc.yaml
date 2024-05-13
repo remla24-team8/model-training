@@ -46,7 +46,7 @@ stages:
 
     - output/y_val.joblib
     outs:
-    - models/phishing_model.h5
+    - output/model.joblib
     metrics:
-    - models/summary.json
+    - output/metrics.json
 
