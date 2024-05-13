@@ -17,33 +17,33 @@ stages:
       size: 46258330
     - path: src/get_data.py
       hash: md5
-      md5: 57a66b0eabae1fd3189d690b6ccd3fea
-      size: 1560
+      md5: da537b0a5f622c7a3156fabc8fe49df4
+      size: 1541
     outs:
     - path: output/raw_x_test.joblib
       hash: md5
-      md5: e124457b4970f7c480da96091142c3da
-      size: 167482
+      md5: 5d5260ca5cfaf43ef4b87d950454943e
+      size: 29790019
     - path: output/raw_x_train.joblib
       hash: md5
-      md5: 4c0d3e7860be427d167eefaa3a4b5eaf
-      size: 818038
+      md5: a8d1efa58ab655ad7e3ae6289a2771a6
+      size: 85494549
     - path: output/raw_x_val.joblib
       hash: md5
-      md5: c7138d00a4bd576d0cbf0a889bbad141
-      size: 163183
+      md5: 32ca321d68f1034fc9eb20e0dad90a13
+      size: 42107707
     - path: output/raw_y_test.joblib
       hash: md5
-      md5: 2748e2360488e42d7b3375951d918ea1
-      size: 24190
+      md5: 414bbd83a196cc0899bbf51b9764083f
+      size: 4411008
     - path: output/raw_y_train.joblib
       hash: md5
-      md5: 556fd2112d78f4036ce0e2cbf6203d05
-      size: 121252
+      md5: e7661073e84fb9fc1386bb9beb617d5e
+      size: 12665899
     - path: output/raw_y_val.joblib
       hash: md5
-      md5: e71c68cab10b95c585379add688d3900
-      size: 24170
+      md5: a967bd8fda10c5ae67333f14c44667e6
+      size: 6238409
   preprocess:
     cmd: python src/process_data.py
     deps:
