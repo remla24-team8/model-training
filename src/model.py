@@ -18,7 +18,7 @@ def create_model(char_index):
                         'dataset_dir': "../dataset/small_dataset/",
                         "metrics": ["accuracy"]}
     
-    num_categories = len(params['categories'])
+    
     embedding_dimension = params['embedding_dimension']
     
     model = Sequential()
