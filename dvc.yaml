@@ -3,9 +3,6 @@ stages:
     cmd: python src/get_data.py data/train.txt data/test.txt data/val.txt
     deps:
     - src/get_data.py
-    - data/test.txt
-    - data/train.txt
-    - data/val.txt
     outs:
     - output/raw_x_test.joblib
     - output/raw_x_train.joblib
