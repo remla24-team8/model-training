@@ -29,4 +29,5 @@ jobs:
     - name: Install dependencies
       run: |
         uv pip sync requirements.txt
+        pytest
 

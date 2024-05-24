@@ -15,7 +15,7 @@ class ModelService:
         """
         Make a prediction using the stored model and a given url as input
         """
-        if type(url) is list:
+        if isinstance(url, list):
             data = url
         else:
             data = [url]
@@ -48,8 +48,7 @@ def test_model_predict_types():
 
     # Test the model with a list of URLs
     urls = ["https://www.google.com", "https://www.facebook.com"]
-    prediction = model.predict(urls)
-    assert isinstance(model.predict(url), np.ndarray)
+    assert isinstance(model.predict(urls), np.ndarray)
 
 
 def test_model_predict_correct_score():
