@@ -1,6 +1,7 @@
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
+from lib_ml.process_data import DataProcessor
 from joblib import dump,load
 
 def main():
@@ -15,9 +16,10 @@ def main():
     raw_y_val = load("output/raw_y_val.joblib")
 
     #Tokenize the dataset
-    tokenizer = Tokenizer(char_level=True,lower=True, oov_token = '-n-') #
-    tokenizer.fit_on_texts(raw_x_train + raw_x_test+ raw_x_val)
 
+    processor = DataProcessor(tokenizer_url='https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj')
+    
+    tokenizer = processor.tokenizer
 
     char_index = tokenizer.word_index
     dump(char_index, 'output/char_index.joblib')
@@ -43,15 +45,6 @@ def main():
     dump(y_val, 'output/y_val.joblib')
     dump(y_test, 'output/y_test.joblib')
 
-
-    # print('Max index in x_train:', np.max(x_train))
-    # print('Min index in x_train:', np.min(x_train))
-
-    # print('Max index in x_test:', np.max(x_test))
-    # print('Min index in x_test:', np.min(x_test))
-
-    # print('Max index in x_val:', np.max(x_val))
-    # print('Min index in x_val:', np.min(x_val))
 
 
 if __name__ == "__main__":
