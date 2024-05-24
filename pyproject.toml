@@ -13,7 +13,9 @@ dependencies = [
     "dvc ~= 3.42.0",
     "dvc-data ~= 3.8.0",
     "dvc-gdrive == 3.0.1",
-    "gdown == 5.2.0"
+    "gdown == 4.5.1",
+    "pytest == 8.2.1",
+    "remla24-team8-lib-ml==0.1.5"
 ]
 requires-python = ">=3.12"
 readme = "README.md"
