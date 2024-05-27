@@ -106,10 +106,16 @@ mkdir data
 mkdir output
 ```
 
-
 To run the created data pipeline first pull and reproduce:
 ```
 dvc pull
 
 dvc repro
+```
+
+After this you can run PyTest with
+
+```
+pytest
+
 ```
