@@ -1,12 +1,19 @@
-name: CI
+name: PyTest and Resource monitor
 
 on: [push, pull_request]
 
 permissions:
   contents: read
+  pull-requests: write
+   
 
 jobs:
-  install:
+  workflow-telemetry-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v2
+  pytest:
     runs-on: ubuntu-latest
 
     steps:
