@@ -113,9 +113,15 @@ dvc pull
 dvc repro
 ```
 
+### Testing
+
 After this you can run PyTest with
 
 ```
 pytest
 
 ```
+
+GitHub unfortunately has no option for soft failing (failing with a warning instead of a red cross), which means we had to improvise. Now any tests allowed to soft fail are automatically skipped when failing instead of failing the whole test. This is indicated by pytest printing: `..s...` where s is the soft-failed test.
+
+Currently tests are failing due to the model itself not being very good in predicting phishing URLs when it comes to internationalized URLs.
