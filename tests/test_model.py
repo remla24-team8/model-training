@@ -7,11 +7,13 @@ import pytest
 
 
 class ModelService:
-    
+
     def __init__(self):
         self.model = self.get_model()
-        self.processor = DataProcessor(tokenizer_url='https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj')
-    
+        self.processor = DataProcessor(
+            tokenizer_url="https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj"
+        )
+
     def predict(self, url):
         """
         Make a prediction using the stored model and a given url as input
@@ -22,25 +24,27 @@ class ModelService:
             data = [url]
         preprocess_url = self.processor.tokenize_pad_data(data)
         prediction = self.model.predict(preprocess_url, verbose=0).flatten()
-        
+
         return prediction
 
-    @staticmethod    
+    @staticmethod
     def get_model():
         if os.path.exists("models/model.h5"):
             model = load_model("models/model.h5", compile=True)
             return model
-        
+
         if not os.path.exists("models/"):
             os.makedirs("models/")
-        
+
         gdrive_url = "https://drive.google.com/drive/u/0/folders/1ITlzN-9Qe7ZnNRGWkq-YHrjt9xYG3e_-"
         model_out = "./"
         gdown.download_folder(gdrive_url, output=model_out)
         model = load_model("models/model.h5", compile=True)
         return model
 
+
 model = ModelService()
+
 
 def test_model_predict_types():
     # Test the model with a single URL
@@ -63,11 +67,11 @@ def test_model_predict_correct_score():
     assert (prediction <= [0.07, 0.07]).all()
 
 
-
 # This test is not working because the model is not trained on internationalized urls
 def test_internationalized():
     url_bad = "http://xn--thn-5cdop7dtb.xn--m-0tbi/"
-    url_good = "http://raytheon.com"
+    url_bad = "https://гауthеоn.соm"
+    url_good = "https://raytheon.com"
 
     if not model.predict(url_good) < model.predict(url_bad):
         pytest.skip("Model not trained on internationalized urls")
