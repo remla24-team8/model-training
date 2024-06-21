@@ -10,7 +10,8 @@ def generate_test_cases(urls):
         urls (list): A list of URLs.
 
     Returns:
-        dict: A dictionary containing the original URL and the transformed URLs for each metamorphic relation.
+        dict: A dictionary containing the original URL and the transformed URLs
+                for each metamorphic relation.
             The dictionary has the following structure:
             {
                 "Original": [original_url_1, original_url_2, ...],

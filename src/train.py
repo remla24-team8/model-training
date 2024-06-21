@@ -1,8 +1,15 @@
-from model import create_model
-from joblib import dump, load
+"""
+This script is used to train the model using the processed data.
+"""
+
 import json
+from joblib import dump, load
+from model import create_model
+
+
+
 # Load or define necessary variables
-#parameters load
+# parameters load
 
 
 char_index = load("output/char_index.joblib")
@@ -16,7 +23,7 @@ y_train = load("output/y_train.joblib")
 y_val = load("output/y_val.joblib")
 y_test = load("output/y_test.joblib")
 
-#Clipping of the vocab size, something wrong with tokenizer
+# Clipping of the vocab size, something wrong with tokenizer
 vocab_size = len(char_index.keys())
 # x_train = np.clip(x_train, 0, vocab_size - 1)
 # x_val = np.clip(x_val, 0, vocab_size - 1)
@@ -25,25 +32,30 @@ vocab_size = len(char_index.keys())
 
 # Create the model and return model parameters
 model, params = create_model(char_index)
-#training of the model
-model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=params['metrics'])
+# training of the model
+model.compile(
+    loss=params["loss_function"],
+    optimizer=params["optimizer"],
+    metrics=params["metrics"],
+)
 
 
-hist = model.fit(x_train, y_train,
-                batch_size=params['batch_train'],
-                epochs=params['epoch'],
-                shuffle=True,
-                validation_data=(x_val, y_val)
-                )
+hist = model.fit(
+    x_train,
+    y_train,
+    batch_size=params["batch_train"],
+    epochs=params["epoch"],
+    shuffle=True,
+    validation_data=(x_val, y_val),
+)
 
-scores = model.evaluate(x_test, y_test, batch_size=params['batch_test'])
+scores = model.evaluate(x_test, y_test, batch_size=params["batch_test"])
 
-metrics = dict(zip(['loss', 'accuracy'], scores))
+metrics = dict(zip(["loss", "accuracy"], scores))
 
-#Save the model
-dump(model, 'output/model.joblib')
+# Save the model
+dump(model, "output/model.joblib")
 
 
-with open('output/metrics.json', 'w+') as json_file:
+with open("output/metrics.json", "w+", encoding='UTF-8') as json_file:
     json.dump(metrics, json_file, indent=4)
-

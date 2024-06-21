@@ -1,7 +1,10 @@
 """
+This module contains test cases for evaluating the invariance of a phishing URL classification model.
+
 MR1: URL Length Invariance
 Original Input: http://phishingexample.com/login
-Transformed Input: Append a benign path that doesn’t change the nature of the URL, e.g., http://phishingexample.com/login?extra=params
+Transformed Input: Append a benign path that doesn't change the nature of the URL, 
+    e.g., http://phishingexample.com/login?extra=params
 Expectation: The classification should remain the same (phishing).
 
 MR2: HTTPS vs. HTTP
@@ -16,7 +19,8 @@ Expectation: The classification should remain the same (phishing).
 
 MR4: Parameter Shuffling
 Original Input: http://phishingexample.com/login?user=test&session=123
-Transformed Input: Shuffle the parameters, e.g., http://phishingexample.com/login?session=123&user=test
+Transformed Input: Shuffle the parameters, e.g., 
+    http://phishingexample.com/login?session=123&user=test
 Expectation: The classification should remain the same (phishing).
 
 MR5: Case Variation in Path
@@ -25,32 +29,39 @@ Transformed Input: Change the case of the path, e.g., http://phishingexample.com
 Expectation: The classification should remain the same (phishing).
 
 Using data from:
-KAITHOLIKKAL, JISHNU K S; B, Arthi  (2024), “Phishing URL dataset”, Mendeley Data, V1, doi: 10.17632/vfszbj9b36.1
+KAITHOLIKKAL, JISHNU K S; B, Arthi  (2024), “Phishing URL dataset”, 
+Mendeley Data, V1, doi: 10.17632/vfszbj9b36.1
 
 """
 
 import os
+import json
 import numpy as np
 from model_service import ModelService
-import json
+
 
 model = ModelService()
 
-with open(os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r") as file:
-    urls = json.load(file)
-    original = urls["Original"]
+with open(
+    os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"),
+    "r",
+    encoding="UTF-8",
+) as data_file:
+    all_urls = json.load(data_file)
+    original = all_urls["Original"]
     original_pred = np.array(model.predict(original))
 
 
 def test_url_invariance():
-    # Tests the model with the same urls except one has a parameter added, should have the same score
-    # This is to test invariance to URL length
+    """
+    Tests the model with the same URLs except one has a parameter added,
+    to evaluate the invariance to URL length.
+    """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r"
+        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r", encoding='UTF-8'
     ) as file:
         urls = json.load(file)
         mr1 = urls["MR1"]
-    # original_pred = np.array(model.predict(original))
     mr1_pred = np.array(model.predict(mr1))
     diff_pred = np.abs(original_pred - mr1_pred)
     print("Median difference: ", np.median(diff_pred))
@@ -58,16 +69,25 @@ def test_url_invariance():
         "Number of predictions with difference greater than 0.1: ",
         np.sum(diff_pred > 0.1),
     )
-    # assert np.sum(diff_pred > 0.1) < 0.1 * len(original_pred)
     assert np.median(diff_pred) < 0.05
 
 
 def test_http_v_https():
-    # Tests the model with the same urls except one is http and the other is https
-    # Data from https://github.com/ada-url/url-various-datasets/blob/main/top100/top100.txt, should be all legit urls
-    with open(os.path.join(os.path.dirname(__file__), "http_top100.txt"), "r") as file:
+    """
+    Tests the model with the same URLs except one is HTTP and the other is HTTPS,
+    to evaluate the invariance to HTTP vs. HTTPS.
+    """
+    with open(
+        os.path.join(os.path.dirname(__file__), "http_top100.txt"),
+        "r",
+        encoding="UTF-8",
+    ) as file:
         http_lines = file.readlines()
-    with open(os.path.join(os.path.dirname(__file__), "https_top100.txt"), "r") as file:
+    with open(
+        os.path.join(os.path.dirname(__file__), "https_top100.txt"),
+        "r",
+        encoding="UTF-8",
+    ) as file:
         https_lines = file.readlines()
     http_pred = model.predict(http_lines)
     https_pred = model.predict(https_lines)
@@ -81,10 +101,14 @@ def test_http_v_https():
 
 
 def test_subdomain_addition():
-    # Tests the model with the same urls except one has a subdomain added
-    # This is to test invariance to subdomain addition
+    """
+    Tests the model with the same URLs except one has a subdomain added,
+    to evaluate the invariance to subdomain addition.
+    """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r"
+        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        "r",
+        encoding="UTF-8",        
     ) as file:
         urls = json.load(file)
         mr3 = urls["MR3"]
@@ -95,15 +119,19 @@ def test_subdomain_addition():
         "Number of predictions with difference greater than 0.1: ",
         np.sum(diff_pred > 0.1),
     )
-    # assert np.sum(diff_pred > 0.1) < 0.1 * len(original_pred)
     assert np.median(diff_pred) < 0.05
 
 
 def test_parameter_shuffling():
-    # Tests the model with the same urls except one has the parameters shuffled
-    # This is to test invariance to parameter shuffling
+    """
+    Tests the model with the same URLs except one has the parameters shuffled,
+    to evaluate the invariance to parameter shuffling.
+    """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r"
+        os.path.join(
+            os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        "r",
+        encoding="UTF-8",
     ) as file:
         urls = json.load(file)
         mr4 = urls["MR4"]
@@ -114,15 +142,19 @@ def test_parameter_shuffling():
         "Number of predictions with difference greater than 0.1: ",
         np.sum(diff_pred > 0.1),
     )
-    # assert np.sum(diff_pred > 0.1) < 0.1 * len(original_pred)
     assert np.median(diff_pred) < 0.05
 
 
 def test_case_variation():
-    # Tests the model with the same urls except one has the case of the path changed
-    # This is to test invariance to case variation in the path
+    """
+    Tests the model with the same URLs except one has the case of the path changed,
+    to evaluate the invariance to case variation in the path.
+    """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r"
+        os.path.join(
+            os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        "r",
+        encoding="UTF-8",
     ) as file:
         urls = json.load(file)
         mr5 = urls["MR5"]
@@ -133,5 +165,4 @@ def test_case_variation():
         "Number of predictions with difference greater than 0.1: ",
         np.sum(diff_pred > 0.1),
     )
-    # assert np.sum(diff_pred > 0.1) < 0.1 * len(original_pred)
     assert np.median(diff_pred) < 0.05

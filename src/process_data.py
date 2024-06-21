@@ -1,9 +1,27 @@
+"""
+Processes data for training the model.
+"""
+
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 from lib_ml.process_data import DataProcessor
-from joblib import dump,load
+from joblib import dump, load
+
 
 def main():
+    """
+    Main function for processing data.
+
+    This function loads data from CSV files, tokenizes the dataset, encodes labels,
+    and saves the processed data.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+
     # Load data from CSV files
     raw_x_train = load("output/raw_x_train.joblib")
     raw_y_train = load("output/raw_y_train.joblib")
@@ -14,19 +32,27 @@ def main():
     raw_x_val = load("output/raw_x_val.joblib")
     raw_y_val = load("output/raw_y_val.joblib")
 
-    #Tokenize the dataset
+    # Tokenize the dataset
 
-    processor = DataProcessor(tokenizer_url='https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj')
-    
+    processor = DataProcessor(
+        tokenizer_url="https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj"
+    )
+
     tokenizer = processor.tokenizer
 
     char_index = tokenizer.word_index
-    dump(char_index, 'output/char_index.joblib')
-    sequence_length=200
+    dump(char_index, "output/char_index.joblib")
+    sequence_length = 200
 
-    x_train = pad_sequences(tokenizer.texts_to_sequences(raw_x_train), maxlen=sequence_length)
-    x_val = pad_sequences(tokenizer.texts_to_sequences(raw_x_val), maxlen=sequence_length)
-    x_test = pad_sequences(tokenizer.texts_to_sequences(raw_x_test), maxlen=sequence_length)
+    x_train = pad_sequences(
+        tokenizer.texts_to_sequences(raw_x_train), maxlen=sequence_length
+    )
+    x_val = pad_sequences(
+        tokenizer.texts_to_sequences(raw_x_val), maxlen=sequence_length
+    )
+    x_test = pad_sequences(
+        tokenizer.texts_to_sequences(raw_x_test), maxlen=sequence_length
+    )
 
     # Encoding labels
     encoder = LabelEncoder()
@@ -34,16 +60,14 @@ def main():
     y_val = encoder.transform(raw_y_val)
     y_test = encoder.transform(raw_y_test)
 
-
     # Save processed data
-    dump(x_train, 'output/x_train.joblib')
-    dump(x_val, 'output/x_val.joblib')
-    dump(x_test, 'output/x_test.joblib')
+    dump(x_train, "output/x_train.joblib")
+    dump(x_val, "output/x_val.joblib")
+    dump(x_test, "output/x_test.joblib")
 
-    dump(y_train, 'output/y_train.joblib')
-    dump(y_val, 'output/y_val.joblib')
-    dump(y_test, 'output/y_test.joblib')
-
+    dump(y_train, "output/y_train.joblib")
+    dump(y_val, "output/y_val.joblib")
+    dump(y_test, "output/y_test.joblib")
 
 
 if __name__ == "__main__":
