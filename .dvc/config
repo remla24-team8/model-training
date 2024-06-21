@@ -3,3 +3,4 @@
     remote = remla-remote-gdrive
 ['remote "remla-remote-gdrive"']
     url = gdrive://1p8ljQaWBnG3fd1h71UZxIkldF84LIGQs
+    gdrive_use_service_account = false

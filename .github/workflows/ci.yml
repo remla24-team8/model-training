@@ -34,6 +34,7 @@ jobs:
         uv pip sync requirements.txt
     - name: Run DVC
       run: |
+        dvc remote modify remla-remote-gdrive gdrive_use_service_account true
         dvc get https://github.com/remla24-team8/model-training models/
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
