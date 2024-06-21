@@ -1,76 +1,54 @@
-import gdown
-import os
-from keras.models import load_model
-from lib_ml.process_data import DataProcessor
+
+
 import numpy as np
 import pytest
-
-
-class ModelService:
-    
-    def __init__(self):
-        self.model = self.get_model()
-        self.processor = DataProcessor(tokenizer_url='https://drive.google.com/drive/u/0/folders/1Z0bbPcIegbLHjJcZ90CqzVPmCBLlYEkj')
-    
-    def predict(self, url):
-        """
-        Make a prediction using the stored model and a given url as input
-        """
-        if isinstance(url, list):
-            data = url
-        else:
-            data = [url]
-        preprocess_url = self.processor.tokenize_pad_data(data)
-        prediction = self.model.predict(preprocess_url, verbose=0).flatten()
-        
-        return prediction
-
-    @staticmethod    
-    def get_model():
-        if os.path.exists("models/model.h5"):
-            model = load_model("models/model.h5", compile=True)
-            return model
-        
-        if not os.path.exists("models/"):
-            os.makedirs("models/")
-        
-        gdrive_url = "https://drive.google.com/drive/u/0/folders/1ITlzN-9Qe7ZnNRGWkq-YHrjt9xYG3e_-"
-        model_out = "./"
-        gdown.download_folder(gdrive_url, output=model_out)
-        model = load_model("models/model.h5", compile=True)
-        return model
+from model_service import ModelService
 
 model = ModelService()
 
+
 def test_model_predict_types():
-    # Test the model with a single URL
+    """
+    Test the types of predictions returned by the model.
+
+    This test checks if the model returns numpy arrays for both single 
+    URL predictions and predictions on a list of URLs.
+    """
     url = "https://www.google.com"
     assert isinstance(model.predict(url), np.ndarray)
 
-    # Test the model with a list of URLs
     urls = ["https://www.google.com", "https://www.facebook.com"]
     assert isinstance(model.predict(urls), np.ndarray)
 
 
 def test_model_predict_correct_score():
-    # Test the model with a single URL
+    """
+    Test the correctness of prediction scores returned by the model.
+
+    This test checks if the model returns prediction scores that are less than or 
+    equal to 0.07 for both single URL predictions and predictions on a list of URLs.
+    """
     url = "https://www.google.com"
     assert model.predict(url) <= 0.07
 
-    # Test the model with a list of URLs
     urls = ["https://www.google.com", "https://www.facebook.com"]
     prediction = model.predict(urls)
     assert (prediction <= [0.07, 0.07]).all()
 
 
-
-# This test is not working because the model is not trained on internationalized urls
 def test_internationalized():
+    """
+    Test the behavior of the model on internationalized URLs.
+
+    This test checks if the model behaves correctly when predicting scores for 
+    internationalized URLs. It skips the test if the model is not trained on internationalized URLs.
+    """
     url_bad = "http://xn--thn-5cdop7dtb.xn--m-0tbi/"
-    url_good = "http://raytheon.com"
+    url_bad = "https://гауthеоn.соm"
+    url_good = "https://raytheon.com"
 
     if not model.predict(url_good) < model.predict(url_bad):
-        pytest.skip("Model not trained on internationalized urls")
+        pytest.skip("Model not trained on internationalized URLs")
     else:
         assert model.predict(url_good) < model.predict(url_bad)
         assert model.predict(url_good) < 0.07
@@ -78,11 +56,15 @@ def test_internationalized():
 
 
 def test_model_predict_incorrect_score():
-    # Test the model with a single URL
+    """
+    Test the correctness of prediction scores returned by the model.
+
+    This test checks if the model returns prediction scores that are greater than 
+    or equal to 0.45 for both single URL predictions and predictions on a list of URLs.
+    """
     url = "http://www.&shygoogle.com"
     assert model.predict(url) >= 0.45
 
-    # Test the model with a list of URLs
     urls = ["http://www.gooogle.com", "http://www.faceebook.com"]
     prediction = model.predict(urls)
     assert (prediction >= [0.45, 0.45]).all()
