@@ -32,6 +32,8 @@ jobs:
     - name: Install dependencies
       run: |
         uv pip sync requirements.txt
+    - name: Install DVC
+      uses: iterative/setup-dvc@v1
     - name: Run DVC
       run: |
         python -m dvc get https://github.com/remla24-team8/model-training models/
