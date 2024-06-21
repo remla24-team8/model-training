@@ -47,3 +47,19 @@ stages:
     metrics:
     - output/metrics.json
 
+  mutamorphic_data:
+    cmd: python tests/gen_mutamorphic_data.py
+    deps:
+    - tests/gen_mutamorphic_data.py
+    - tests/URL_dataset.csv
+    outs:
+    - tests/mutamorphic_urls.txt
+  
+  mutamorphic_test:
+    cmd: python -m pytest tests/test_mutamorphic.py
+    deps:
+    - tests/test_mutamorphic.py
+    - tests/gen_mutamorphic_data.py
+    - tests/mutamorphic_urls.txt
+    
+

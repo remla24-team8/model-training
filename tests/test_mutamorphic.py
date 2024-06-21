@@ -42,6 +42,10 @@ from model_service import ModelService
 
 model = ModelService()
 
+if not os.path.exists(os.path.dirname(__file__) + "/mutamorphic_urls.txt"):
+    print("Generating Mutamorphic URLs")
+    os.system(f"python {os.path.dirname(__file__)}/gen_mutamorphic_data.py")
+
 with open(
     os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"),
     "r",
@@ -52,13 +56,16 @@ with open(
     original_pred = np.array(model.predict(original))
 
 
+
 def test_url_invariance():
     """
     Tests the model with the same URLs except one has a parameter added,
     to evaluate the invariance to URL length.
     """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), "r", encoding='UTF-8'
+        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), 
+        "r", 
+        encoding='UTF-8',
     ) as file:
         urls = json.load(file)
         mr1 = urls["MR1"]

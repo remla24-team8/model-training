@@ -161,5 +161,5 @@ stages:
       size: 2276398
     - path: tests/test_mutamorphic.py
       hash: md5
-      md5: 7b08a9854ba3ff6fd1b16a20bc7d107b
-      size: 5485
+      md5: de99c14cc4e728c9402d645860c98129
+      size: 5504
