@@ -35,6 +35,10 @@ jobs:
     - name: Run DVC
       run: |
         dvc get https://github.com/remla24-team8/model-training models/
+      env:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        GDRIVE_CREDENTIALS_DATA : ${{ secrets.GDRIVE_CREDENTIALS_DATA }} 
+
     - name: Running pytest
       run: |
         pytest
