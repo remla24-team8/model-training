@@ -39,9 +39,9 @@ import json
 import numpy as np
 from model_service import ModelService
 
-dir_mutaurls = os.path.join(os.path.dirname(__file__), "/testdata/mutamorphic_urls.txt")
-dir_http100 = os.path.join(os.path.dirname(__file__), "/testdata/http_top100.txt")
-dir_https100 = os.path.join(os.path.dirname(__file__), "/testdata/https_top100.txt")
+dir_mutaurls = os.path.join(os.path.dirname(__file__), "testdata/mutamorphic_urls.txt")
+dir_http100 = os.path.join(os.path.dirname(__file__), "testdata/http_top100.txt")
+dir_https100 = os.path.join(os.path.dirname(__file__), "testdata/https_top100.txt")
 
 model = ModelService()
 
