@@ -4,16 +4,10 @@ This script is used to train the model using the processed data.
 
 import json
 import os
-from joblib import dump, load
-from model import create_model
+from joblib import load
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
-
-
-
-# Load or define necessary variables
-# parameters load
-
+from model import create_model
 
 char_index = load("output/char_index.joblib")
 
@@ -77,5 +71,3 @@ drive = GoogleDrive(gauth)
 file = drive.CreateFile({'id': '174hfdMaKE_J0OLdvfGIxxJM_7KJyiqaJ'})
 file.SetContentFile("models/model.h5")
 file.Upload()
-
-
