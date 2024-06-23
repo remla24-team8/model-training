@@ -39,15 +39,18 @@ import json
 import numpy as np
 from model_service import ModelService
 
+dir_mutaurls = os.path.join(os.path.dirname(__file__), "/testdata/mutamorphic_urls.txt")
+dir_http100 = os.path.join(os.path.dirname(__file__), "/testdata/http_top100.txt")
+dir_https100 = os.path.join(os.path.dirname(__file__), "/testdata/https_top100.txt")
 
 model = ModelService()
 
-if not os.path.exists(os.path.dirname(__file__) + "/mutamorphic_urls.txt"):
+if not os.path.exists(os.path.dirname(__file__) + dir_mutaurls):
     print("Generating Mutamorphic URLs")
     os.system(f"python {os.path.dirname(__file__)}/gen_mutamorphic_data.py")
 
 with open(
-    os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"),
+    dir_mutaurls,
     "r",
     encoding="UTF-8",
 ) as data_file:
@@ -63,7 +66,7 @@ def test_url_invariance():
     to evaluate the invariance to URL length.
     """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"), 
+        dir_mutaurls, 
         "r", 
         encoding='UTF-8',
     ) as file:
@@ -85,13 +88,13 @@ def test_http_v_https():
     to evaluate the invariance to HTTP vs. HTTPS.
     """
     with open(
-        os.path.join(os.path.dirname(__file__), "http_top100.txt"),
+        dir_http100,
         "r",
         encoding="UTF-8",
     ) as file:
         http_lines = file.readlines()
     with open(
-        os.path.join(os.path.dirname(__file__), "https_top100.txt"),
+        dir_https100,
         "r",
         encoding="UTF-8",
     ) as file:
@@ -113,7 +116,7 @@ def test_subdomain_addition():
     to evaluate the invariance to subdomain addition.
     """
     with open(
-        os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        dir_mutaurls,
         "r",
         encoding="UTF-8",        
     ) as file:
@@ -135,8 +138,7 @@ def test_parameter_shuffling():
     to evaluate the invariance to parameter shuffling.
     """
     with open(
-        os.path.join(
-            os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        dir_mutaurls,
         "r",
         encoding="UTF-8",
     ) as file:
@@ -158,8 +160,7 @@ def test_case_variation():
     to evaluate the invariance to case variation in the path.
     """
     with open(
-        os.path.join(
-            os.path.dirname(__file__), "mutamorphic_urls.txt"),
+        dir_mutaurls,
         "r",
         encoding="UTF-8",
     ) as file:

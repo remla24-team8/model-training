@@ -1,6 +1,8 @@
 import os
 from keras.models import load_model
+import gdown
 from lib_ml.process_data import DataProcessor
+
 
 
 
@@ -26,20 +28,17 @@ class ModelService:
 
         return prediction
 
-    @staticmethod    
+    @staticmethod
     def get_model():
-        """
-        Load the model from the local file system or download it if necessary.
-
-        Returns:
-            The loaded model.
-        """
         if os.path.exists("models/model.h5"):
             model = load_model("models/model.h5", compile=True)
             return model
-        
-        os.system("python -m dvc get \
-                  https://github.com/remla24-team8/model-training models/")
 
+        if not os.path.exists("models/"):
+            os.makedirs("models/")
+
+        gdrive_url = "https://drive.google.com/drive/u/0/folders/1ITlzN-9Qe7ZnNRGWkq-YHrjt9xYG3e_-"
+        model_out = "./"
+        gdown.download_folder(gdrive_url, output=model_out)
         model = load_model("models/model.h5", compile=True)
         return model

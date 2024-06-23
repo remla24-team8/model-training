@@ -51,7 +51,7 @@ stages:
     cmd: python tests/gen_mutamorphic_data.py
     deps:
     - tests/gen_mutamorphic_data.py
-    - tests/URL_dataset.csv
+    - tests/testdata/URL_dataset.csv
     outs:
     - tests/mutamorphic_urls.txt
   
@@ -60,6 +60,6 @@ stages:
     deps:
     - tests/test_mutamorphic.py
     - tests/gen_mutamorphic_data.py
-    - tests/mutamorphic_urls.txt
+    - tests/testdata/mutamorphic_urls.txt
     
 
