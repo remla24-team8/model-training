@@ -3,6 +3,7 @@ Downloads data from Gdrive and saves it in joblib format.
 """
 
 import sys
+import os
 from joblib import dump
 import gdown
 
@@ -39,6 +40,9 @@ def main():
     val_data = sys.argv[3]
 
     gdown.download_folder(dataset, output="data")
+
+    if not os.path.exists("output"):
+        os.makedirs("output")
 
     # Code to fetch and save data
     with open(train_data, "r", encoding='UTF-8') as file:

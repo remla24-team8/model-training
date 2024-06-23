@@ -166,5 +166,4 @@ params.json
 data/
 output/
 tokenizer/
-/models
 /data

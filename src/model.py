@@ -28,7 +28,7 @@ def create_model(char_index):
         "batch_test": 5000,
         "categories": ["phishing", "legitimate"],
         "char_index": char_index,
-        "epoch": 1,
+        "epoch": 20,
         "embedding_dimension": 50,
         "dataset_dir": "../dataset/small_dataset/",
         "metrics": ["accuracy"],

@@ -40,10 +40,9 @@ stages:
     - output/x_train.joblib
     - output/x_val.joblib
     - output/y_train.joblib
-
     - output/y_val.joblib
     outs:
-    - output/model.joblib
+    - models/model.h5
     metrics:
     - output/metrics.json
 
@@ -53,7 +52,7 @@ stages:
     - tests/gen_mutamorphic_data.py
     - tests/testdata/URL_dataset.csv
     outs:
-    - tests/mutamorphic_urls.txt
+    - tests/testdata/mutamorphic_urls.txt
   
   mutamorphic_test:
     cmd: python -m pytest tests/test_mutamorphic.py

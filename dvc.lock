@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/get_data.py
       hash: md5
-      md5: e083aaa23af6eab6f24721d2de882136
-      size: 2085
+      md5: 503295f7b0c9edf3c585be76bd135d04
+      size: 2163
     outs:
     - path: output/raw_x_test.joblib
       hash: md5
@@ -121,45 +121,45 @@ stages:
       size: 1949
     - path: src/train.py
       hash: md5
-      md5: a45f7b9dd337c984f19458f9cbaf66f3
-      size: 1444
+      md5: 4f1535c3969fcd2deef4fcbc2bfb69b8
+      size: 2028
     outs:
+    - path: models/model.h5
+      hash: md5
+      md5: dff0fb63b85c35efd42e086e5f30c3f4
+      size: 5483016
     - path: output/metrics.json
       hash: md5
-      md5: 0bcbe9e0853cd9f8dd352c67da985066
-      size: 71
-    - path: output/model.joblib
-      hash: md5
-      md5: 868f88313275db8c8b50b353e54b2ade
-      size: 5472586
+      md5: 52da50cd135fb9329bc02ed9354d06ae
+      size: 70
   mutamorphic_data:
     cmd: python tests/gen_mutamorphic_data.py
     deps:
-    - path: tests/URL_dataset.csv
+    - path: tests/gen_mutamorphic_data.py
+      hash: md5
+      md5: 5a8aabf168c8b92dfadaef878fe3e738
+      size: 3688
+    - path: tests/testdata/URL_dataset.csv
       hash: md5
       md5: c7a43bac8e9279f8555da2091162b72d
       size: 32312591
-    - path: tests/gen_mutamorphic_data.py
-      hash: md5
-      md5: 000800aa905650ad5d83b7a460c4bbbc
-      size: 3670
     outs:
-    - path: tests/mutamorphic_urls.txt
+    - path: tests/testdata/mutamorphic_urls.txt
       hash: md5
-      md5: fd28aaed967d1dd7b6519b93a6c2a29a
-      size: 2276398
+      md5: e596a5a4d192677eb22fe37a6a467894
+      size: 2256255
   mutamorphic_test:
     cmd: python -m pytest tests/test_mutamorphic.py
     deps:
     - path: tests/gen_mutamorphic_data.py
       hash: md5
-      md5: 000800aa905650ad5d83b7a460c4bbbc
-      size: 3670
-    - path: tests/mutamorphic_urls.txt
-      hash: md5
-      md5: fd28aaed967d1dd7b6519b93a6c2a29a
-      size: 2276398
+      md5: 5a8aabf168c8b92dfadaef878fe3e738
+      size: 3688
     - path: tests/test_mutamorphic.py
       hash: md5
-      md5: 61b6acc5d35f2553a0a850c79b16e90e
-      size: 5700
+      md5: 7c63a1b51e8f99ff198d441c65e1f411
+      size: 5568
+    - path: tests/testdata/mutamorphic_urls.txt
+      hash: md5
+      md5: 7f15b17b250dad0f8a5097b30f9967dd
+      size: 2260364
