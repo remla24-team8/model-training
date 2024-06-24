@@ -2,7 +2,6 @@
 Defines the model architecture for the text classification task.
 """
 
-
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 

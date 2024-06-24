@@ -50,15 +50,15 @@ scores = model.evaluate(x_test, y_test, batch_size=params["batch_test"])
 
 metrics = dict(zip(["loss", "accuracy"], scores))
 
-with open("output/metrics.json", "w+", encoding='UTF-8') as json_file:
+with open("output/metrics.json", "w+", encoding="UTF-8") as json_file:
     json.dump(metrics, json_file, indent=4)
 
 # Save the model
 model.save("models/model.h5")
 # Upload the model file to Google Drive using authenticator flow
 
-client_json_path = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
-GoogleAuth.DEFAULT_SETTINGS['client_config_file'] = client_json_path
+client_json_path = os.path.join(os.path.dirname(__file__), "client_secrets.json")
+GoogleAuth.DEFAULT_SETTINGS["client_config_file"] = client_json_path
 
 # Authenticate with Google Drive
 gauth = GoogleAuth()
@@ -68,6 +68,6 @@ gauth.LocalWebserverAuth()
 drive = GoogleDrive(gauth)
 
 # Upload the model file
-file = drive.CreateFile({'id': '174hfdMaKE_J0OLdvfGIxxJM_7KJyiqaJ'})
+file = drive.CreateFile({"id": "174hfdMaKE_J0OLdvfGIxxJM_7KJyiqaJ"})
 file.SetContentFile("models/model.h5")
 file.Upload()

@@ -45,7 +45,7 @@ def main():
         os.makedirs("output")
 
     # Code to fetch and save data
-    with open(train_data, "r", encoding='UTF-8') as file:
+    with open(train_data, "r", encoding="UTF-8") as file:
         train = [line.strip() for line in file.readlines()[1:]]
 
     raw_x_train = [line.split("\t")[1] for line in train]
@@ -53,7 +53,7 @@ def main():
     dump(raw_x_train, "output/raw_x_train.joblib")
     dump(raw_y_train, "output/raw_y_train.joblib")
 
-    with open(test_data, "r", encoding='UTF-8') as file:
+    with open(test_data, "r", encoding="UTF-8") as file:
         test = [line.strip() for line in file.readlines()]
 
     raw_x_test = [line.split("\t")[1] for line in test]
@@ -61,7 +61,7 @@ def main():
     dump(raw_x_test, "output/raw_x_test.joblib")
     dump(raw_y_test, "output/raw_y_test.joblib")
 
-    with open(val_data, "r", encoding='UTF-8') as file:
+    with open(val_data, "r", encoding="UTF-8") as file:
         val = [line.strip() for line in file.readlines()]
     raw_x_val = [line.split("\t")[1] for line in val]
     raw_y_val = [line.split("\t")[0] for line in val]
