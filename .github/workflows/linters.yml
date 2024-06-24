@@ -2,7 +2,7 @@ name: linters
 on: [push, pull_request]
 
 jobs:
-  build:
+  linters:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,13 +21,19 @@ jobs:
         pip install bandit
     - name: Analysing the code with pylint, score should be 10
       run: |
-        pylint src/ --fail-under=10.0
+        pylint src/ --fail-under=10.0 2>&1 | tee pylint.txt
     - name: Black formatting
       run: |
-        black --check src/
+        black --check src/ 2>&1 | tee black.txt
     - name: Bandit security check
       run: |
-        bandit -r src/
+        bandit -r src/ 2>&1 | tee bandit.txt
+    - name: Archive results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: linter-logs
+        path: ./*.txt
   ruff:
     runs-on: ubuntu-latest
     steps:
