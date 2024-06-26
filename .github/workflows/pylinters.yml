@@ -1,0 +1,41 @@
+name: pylinters
+on: [push, pull_request]
+
+jobs:
+  linters:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies for pylint
+      run: | 
+        python -m pip install --upgrade pip
+        pip install pylint==2.17
+        pip install black
+        pip install bandit
+    - name: Analysing the code with pylint, score should be 10
+      run: |
+        pylint src/ --fail-under=10.0 2>&1 | tee pylint.log
+    - name: Black formatting
+      run: |
+        black --check src/ 2>&1 | tee black.log
+    - name: Bandit security check
+      run: |
+        bandit -r src/ 2>&1 | tee bandit.log
+    - name: Archive results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: linter-logs-${{ matrix.python-version }}
+        path: ./*.log
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1 

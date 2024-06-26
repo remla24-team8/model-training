@@ -3,14 +3,11 @@ This script is used to train the model using the processed data.
 """
 
 import json
-from joblib import dump, load
+import os
+from joblib import load
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 from model import create_model
-
-
-
-# Load or define necessary variables
-# parameters load
-
 
 char_index = load("output/char_index.joblib")
 
@@ -53,9 +50,24 @@ scores = model.evaluate(x_test, y_test, batch_size=params["batch_test"])
 
 metrics = dict(zip(["loss", "accuracy"], scores))
 
-# Save the model
-dump(model, "output/model.joblib")
-
-
-with open("output/metrics.json", "w+", encoding='UTF-8') as json_file:
+with open("output/metrics.json", "w+", encoding="UTF-8") as json_file:
     json.dump(metrics, json_file, indent=4)
+
+# Save the model
+model.save("models/model.h5")
+# Upload the model file to Google Drive using authenticator flow
+
+client_json_path = os.path.join(os.path.dirname(__file__), "client_secrets.json")
+GoogleAuth.DEFAULT_SETTINGS["client_config_file"] = client_json_path
+
+# Authenticate with Google Drive
+gauth = GoogleAuth()
+gauth.LocalWebserverAuth()
+
+# Create GoogleDrive instance
+drive = GoogleDrive(gauth)
+
+# Upload the model file
+file = drive.CreateFile({"id": "174hfdMaKE_J0OLdvfGIxxJM_7KJyiqaJ"})
+file.SetContentFile("models/model.h5")
+file.Upload()

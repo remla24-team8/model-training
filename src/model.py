@@ -2,7 +2,6 @@
 Defines the model architecture for the text classification task.
 """
 
-
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 
@@ -28,7 +27,7 @@ def create_model(char_index):
         "batch_test": 5000,
         "categories": ["phishing", "legitimate"],
         "char_index": char_index,
-        "epoch": 1,
+        "epoch": 20,
         "embedding_dimension": 50,
         "dataset_dir": "../dataset/small_dataset/",
         "metrics": ["accuracy"],

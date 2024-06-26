@@ -82,8 +82,8 @@ def main():
     """
     Main function to generate test URLs and write them to a file.
     """
-    input_file = os.path.join(os.path.dirname(__file__), "URL_dataset.csv")
-    output_file = os.path.join(os.path.dirname(__file__), "mutamorphic_urls.txt")
+    input_file = os.path.join(os.path.dirname(__file__), "testdata/URL_dataset.csv")
+    output_file = os.path.join(os.path.dirname(__file__), "testdata/mutamorphic_urls.txt")
     sample_size = 5000
 
     with open(input_file, "r") as infile, open(output_file, "w") as outfile:

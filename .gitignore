@@ -34,6 +34,7 @@ MANIFEST
 
 # Installer logs
 pip-log.txt
+report.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
@@ -166,5 +167,4 @@ params.json
 data/
 output/
 tokenizer/
-/models
 /data
