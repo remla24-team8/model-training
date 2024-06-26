@@ -21,19 +21,19 @@ jobs:
         pip install bandit
     - name: Analysing the code with pylint, score should be 10
       run: |
-        pylint src/ --fail-under=10.0 2>&1 | tee pylint.txt
+        pylint src/ --fail-under=10.0 2>&1 | tee pylint${{ matrix.python-version }}.log
     - name: Black formatting
       run: |
-        black --check src/ 2>&1 | tee black.txt
+        black --check src/ 2>&1 | tee black${{ matrix.python-version }}.log
     - name: Bandit security check
       run: |
-        bandit -r src/ 2>&1 | tee bandit.txt
+        bandit -r src/ 2>&1 | tee bandit${{ matrix.python-version }}.log
     - name: Archive results
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: linter-logs
-        path: ./*.txt
+        path: ./*.log
   ruff:
     runs-on: ubuntu-latest
     steps:
