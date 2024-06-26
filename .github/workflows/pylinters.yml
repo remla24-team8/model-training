@@ -1,4 +1,4 @@
-name: linters
+name: pylinters
 on: [push, pull_request]
 
 jobs:
