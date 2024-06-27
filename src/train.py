@@ -68,6 +68,8 @@ gauth.LocalWebserverAuth()
 drive = GoogleDrive(gauth)
 
 # Upload the model file
-file = drive.CreateFile({"id": "174hfdMaKE_J0OLdvfGIxxJM_7KJyiqaJ"})
+file = drive.CreateFile(
+    {"title": "model.h5", "parents": [{"id": "1ITlzN-9Qe7ZnNRGWkq-YHrjt9xYG3e_-"}]}
+)
 file.SetContentFile("models/model.h5")
 file.Upload()
