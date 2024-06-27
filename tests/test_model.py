@@ -33,6 +33,7 @@ def test_model_predict_correct_score():
 
     urls = ["https://www.google.com", "https://www.facebook.com"]
     prediction = model.predict(urls)
+    print(f"Testing legit urls: {prediction}")
     assert (prediction <= [0.07, 0.07]).all()
 
 
@@ -46,13 +47,16 @@ def test_internationalized():
     url_bad = "http://xn--thn-5cdop7dtb.xn--m-0tbi/"
     url_bad = "https://гауthеоn.соm"
     url_good = "https://raytheon.com"
+    good_score = model.predict(url_good)
+    bad_score = model.predict(url_bad)
+    print(f"Testing internationalized urls: legit: {good_score}, scam: {bad_score}")
 
-    if not model.predict(url_good) < model.predict(url_bad):
+    if not good_score < bad_score:
         pytest.skip("Model not trained on internationalized URLs")
     else:
-        assert model.predict(url_good) < model.predict(url_bad)
-        assert model.predict(url_good) < 0.07
-        assert model.predict(url_bad) > 0.07
+        assert good_score < bad_score
+        assert good_score < 0.07
+        assert bad_score > 0.07
 
 
 def test_model_predict_incorrect_score():
@@ -63,8 +67,10 @@ def test_model_predict_incorrect_score():
     or equal to 0.45 for both single URL predictions and predictions on a list of URLs.
     """
     url = "http://www.&shygoogle.com"
+    print(f"Testing scam urls: {model.predict(url)}")
     assert model.predict(url) >= 0.45
 
     urls = ["http://www.gooogle.com", "http://www.faceebook.com"]
+    print(f"Testing scam urls: {model.predict(urls)}")
     prediction = model.predict(urls)
     assert (prediction >= [0.45, 0.45]).all()

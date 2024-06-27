@@ -34,7 +34,7 @@ jobs:
         uv pip sync requirements.txt
     - name: Running pytest
       run: |
-        pytest
+        pytest -v -s
 
     
 
