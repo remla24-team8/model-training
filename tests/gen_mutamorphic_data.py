@@ -92,8 +92,8 @@ def main():
             url = line.split(",")[0].strip()
             if url:
                 urls.append(url)
-            if len(urls) % 1000 == 0:
-                print(f"Read {len(urls)} URLs from the input file.", end="\r")
+
+        print(f"Read {len(urls)} URLs from the input file.")
 
         sampled_urls = random.sample(urls, sample_size)
 
